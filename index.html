@@ -1229,9 +1229,10 @@
             font-weight: bold;
         }
 
-        /* ===============================
-           Responsive
-        =============================== */
+        /* =====================================================
+           MOBILE
+           تصغير الخطوط والمسافات فقط على الموبايل
+        ===================================================== */
 
         @media (max-width: 600px) {
 
@@ -1240,41 +1241,283 @@
             }
 
             .app-container {
-                width: min(650px, calc(100% - 20px));
-                padding-top: 15px;
+                width: calc(100% - 14px);
+                padding-top: 10px;
+                padding-bottom: 22px;
             }
+
+            /* زر الموسيقى */
+
+            .music-float-btn {
+                width: 42px;
+                height: 42px;
+                top: 12px;
+                left: 12px;
+                font-size: 15px;
+            }
+
+            /* بوابة الدخول */
+
+            #entry-gate {
+                padding: 12px;
+            }
+
+            .gate-card {
+                padding: 30px 16px;
+                border-radius: 23px;
+            }
+
+            .gate-card h1 {
+                font-size: 1.85rem;
+                margin-bottom: 9px;
+            }
+
+            .gate-card p {
+                font-size: 0.88rem;
+                line-height: 1.6;
+                margin-bottom: 18px;
+            }
+
+            .royal-enter-btn {
+                padding: 10px 22px;
+                font-size: 0.86rem;
+            }
+
+            /* الهيدر */
 
             .royal-hero {
-                padding: 42px 17px;
+                padding: 28px 12px;
+                border-radius: 20px;
             }
+
+            .bismillah {
+                font-size: 1rem;
+                margin-bottom: 9px;
+                white-space: nowrap;
+            }
+
+            .hero-intro {
+                font-size: 0.84rem;
+                line-height: 1.55;
+            }
+
+            .royal-hero h2 {
+                font-size: 1.45rem;
+                margin: 9px 0;
+                line-height: 1.35;
+                white-space: nowrap;
+            }
+
+            .couple-names {
+                font-size: 1.65rem;
+                margin: 6px 0 10px;
+                letter-spacing: 0;
+                white-space: nowrap;
+            }
+
+            .hero-description {
+                font-size: 0.84rem;
+                line-height: 1.6;
+                margin-bottom: 11px;
+            }
+
+            .hero-description br {
+                display: none;
+            }
+
+            .event-badge {
+                padding: 6px 9px;
+                font-size: 0.69rem;
+                white-space: nowrap;
+                max-width: 100%;
+            }
+
+            /* المسافات بين الأقسام */
+
+            .reveal-spacer {
+                height: 55px;
+            }
+
+            /* الأقسام */
 
             .royal-section.revealed {
-                padding: 30px 18px;
+                padding: 22px 11px;
+                margin-bottom: 12px;
+                border-radius: 18px;
             }
 
+            .royal-section h3 {
+                font-size: 1.12rem;
+                line-height: 1.4;
+                margin-bottom: 7px;
+                white-space: nowrap;
+            }
+
+            .royal-section > p {
+                font-size: 0.82rem;
+                line-height: 1.55;
+                margin-bottom: 12px;
+            }
+
+            /* العد التنازلي */
+
             .countdown-grid {
-                gap: 7px;
+                gap: 5px;
+                margin: 13px auto 15px;
             }
 
             .countdown-box {
-                padding: 10px 5px;
+                padding: 7px 3px;
+                border-radius: 10px;
             }
 
             .countdown-number {
-                font-size: 1.45rem;
+                font-size: 1.15rem;
             }
 
             .countdown-label {
+                font-size: 0.67rem;
+            }
+
+            .calendar-btn {
+                padding: 8px 11px;
+                font-size: 0.7rem;
+                white-space: nowrap;
+            }
+
+            /* القاعة */
+
+            .map-toggle-btn {
+                padding: 9px 15px;
+                font-size: 0.72rem;
+                white-space: nowrap;
+            }
+
+            .map-frame-box {
+                height: 190px;
+                margin-top: 13px;
+                border-radius: 13px;
+            }
+
+            .map-hint-text {
+                font-size: 0.72rem !important;
+                margin-top: 7px !important;
+            }
+
+            /* النموذج */
+
+            .royal-form {
+                gap: 10px;
+            }
+
+            .form-group {
+                gap: 5px;
+            }
+
+            .form-group label {
                 font-size: 0.82rem;
             }
 
-            .reveal-spacer {
-                height: 75px;
+            .royal-form input,
+            .royal-form textarea,
+            .royal-form select {
+                padding: 9px 9px;
+                font-size: 0.78rem;
+                border-radius: 9px;
             }
 
+            .royal-form textarea {
+                min-height: 78px;
+            }
+
+            .royal-form input::placeholder,
+            .royal-form textarea::placeholder {
+                font-size: 0.75rem;
+            }
+
+            .field-note {
+                font-size: 0.7rem;
+            }
+
+            /* الأغنية */
+
+            .song-card {
+                padding: 9px 9px;
+                font-size: 0.72rem;
+                line-height: 1.5;
+                border-radius: 10px;
+            }
+
+            .song-card strong {
+                margin-bottom: 2px;
+                font-size: 0.76rem;
+            }
+
+            /* الحضور */
+
+            .radio-options {
+                gap: 10px;
+                margin-top: 2px;
+            }
+
+            .radio-options label {
+                font-size: 0.82rem;
+                gap: 5px;
+            }
+
+            .radio-options input {
+                width: 16px;
+                height: 16px;
+            }
+
+            .strict-attendance-warning {
+                font-size: 0.7rem;
+                line-height: 1.5;
+                padding: 7px;
+                border-radius: 8px;
+            }
+
+            /* زر الإرسال */
+
+            .royal-submit-btn {
+                margin-top: 2px;
+                padding: 10px;
+                font-size: 0.82rem;
+                border-radius: 10px;
+            }
+
+            /* رسائل النتيجة */
+
+            .response-alert {
+                margin-top: 12px;
+                padding: 13px;
+                font-size: 0.82rem;
+                line-height: 1.55;
+                border-radius: 11px;
+            }
+
+            /* الفوتر */
+
+            .royal-footer {
+                padding: 20px 5px 7px;
+                font-size: 0.7rem;
+                line-height: 1.6;
+            }
+
+            /* منع العناوين من أخذ عدة أسطر */
+
+            .royal-section h3,
+            .royal-hero h2,
+            .couple-names,
+            .bismillah {
+                text-wrap: nowrap;
+            }
+
+            /* تصغير الإضاءة */
+
             #interactive-light {
-                width: 230px;
-                height: 230px;
+                width: 210px;
+                height: 210px;
             }
         }
 
@@ -1875,10 +2118,6 @@
                     'active'
                 );
 
-                /*
-                 * تشغيل الأغنية مباشرة بعد
-                 * ضغط المستخدم على زر فتح الدعوة
-                 */
                 await startMusic();
 
                 setTimeout(() => {
@@ -2518,7 +2757,7 @@
 
                     const response =
                         await fetch(
-                            weddingForm.action,
+     weddingForm.action,
                             {
                                 method: 'POST',
                                 body: formData,
