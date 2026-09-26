@@ -1559,7 +1559,7 @@
     <audio
         id="bgMusic"
         loop
-        preload="auto"
+        preload="metadata"
         playsinline>
         <source src="wedding.mp3" type="audio/mpeg">
     </audio>
@@ -2067,39 +2067,30 @@
 
 
         async function startMusic() {
+    try {
+        bgMusic.muted = false;
+        bgMusic.volume = 0.65;
 
-            try {
-
-                bgMusic.muted = false;
-
-                await bgMusic.play();
-
-                musicToggle.textContent = '🎵';
-
-                musicToggle.classList.add(
-                    'music-playing'
-                );
-
-                return true;
-
-            } catch (error) {
-
-                console.log(
-                    'Music playback was blocked:',
-                    error
-                );
-
-                musicToggle.textContent = '🔇';
-
-                musicToggle.classList.remove(
-                    'music-playing'
-                );
-
-                return false;
-
-            }
-
+        if (bgMusic.readyState < 2) {
+            bgMusic.load();
         }
+
+        await bgMusic.play();
+
+        musicToggle.textContent = '🎵';
+        musicToggle.classList.add('music-playing');
+
+        return true;
+
+    } catch (error) {
+        console.log('Music playback was blocked:', error);
+
+        musicToggle.textContent = '🔇';
+        musicToggle.classList.remove('music-playing');
+
+        return false;
+    }
+}
 
 
         /* ==========================================
