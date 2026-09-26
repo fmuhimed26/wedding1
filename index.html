@@ -1,0 +1,2470 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>دعوة زفاف ملكية - فاطمة & علي</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Reem+Kufi:wght@400;600;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --royal-bg: #03120c;
+            --panel-bg: rgba(5, 17, 12, 0.84);
+
+            --gold-primary: #e6ca65;
+            --gold-light: #fff5c0;
+            --gold-dark: #b89728;
+
+            --cream-text: #f7f3e9;
+
+            --hero-accent: #e6ca65;
+            --countdown-accent: #d7d0a6;
+            --venue-accent: #a8c49d;
+            --wishes-accent: #d7a77d;
+            --song-accent: #c9b784;
+            --rsvp-accent: #cdb261;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background:
+                radial-gradient(circle at 15% 15%, rgba(230, 202, 101, 0.08), transparent 28%),
+                radial-gradient(circle at 85% 80%, rgba(170, 200, 160, 0.06), transparent 30%),
+                var(--royal-bg);
+            color: var(--cream-text);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                linear-gradient(
+                    120deg,
+                    transparent 0%,
+                    rgba(255,255,255,0.015) 35%,
+                    rgba(230,202,101,0.035) 50%,
+                    transparent 70%
+                );
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            background:
+                linear-gradient(rgba(3,18,12,0.82), rgba(3,18,12,0.88)),
+                url('https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=1500&q=80')
+                center / cover no-repeat;
+            background-attachment: fixed;
+        }
+
+        /* ===============================
+           الإضاءة التفاعلية
+        =============================== */
+
+        #interactive-light {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            left: 0;
+            top: 0;
+            pointer-events: none;
+            z-index: 3;
+            opacity: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255, 245, 192, 0.13) 0%,
+                    rgba(230, 202, 101, 0.06) 25%,
+                    rgba(230, 202, 101, 0.025) 45%,
+                    transparent 72%
+                );
+            filter: blur(8px);
+            mix-blend-mode: screen;
+            transition: opacity 0.4s ease;
+        }
+
+        .light-ribbons {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .light-ribbon {
+            position: absolute;
+            width: 170%;
+            height: 1px;
+            left: -35%;
+            opacity: 0.10;
+            transform: rotate(-18deg);
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,245,192,0.45),
+                rgba(230,202,101,0.85),
+                rgba(255,245,192,0.35),
+                transparent
+            );
+            filter: blur(0.5px);
+        }
+
+        .light-ribbon:nth-child(1) {
+            top: 25%;
+            animation: ribbonMove1 13s linear infinite;
+        }
+
+        .light-ribbon:nth-child(2) {
+            top: 55%;
+            animation: ribbonMove2 17s linear infinite;
+            opacity: 0.07;
+        }
+
+        .light-ribbon:nth-child(3) {
+            top: 78%;
+            animation: ribbonMove3 20s linear infinite;
+            opacity: 0.06;
+        }
+
+        @keyframes ribbonMove1 {
+            0%   { transform: translateX(-20%) rotate(-18deg); }
+            50%  { transform: translateX(12%) rotate(-18deg); }
+            100% { transform: translateX(-20%) rotate(-18deg); }
+        }
+
+        @keyframes ribbonMove2 {
+            0%   { transform: translateX(18%) rotate(-18deg); }
+            50%  { transform: translateX(-10%) rotate(-18deg); }
+            100% { transform: translateX(18%) rotate(-18deg); }
+        }
+
+        @keyframes ribbonMove3 {
+            0%   { transform: translateX(-8%) rotate(-18deg); }
+            50%  { transform: translateX(15%) rotate(-18deg); }
+            100% { transform: translateX(-8%) rotate(-18deg); }
+        }
+
+        /* ===============================
+           زر الموسيقى
+        =============================== */
+
+        .music-float-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            z-index: 1000;
+
+            background: rgba(230, 202, 101, 0.15);
+            border: 1px solid rgba(255, 245, 192, 0.7);
+
+            color: var(--gold-light);
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 19px;
+
+            backdrop-filter: blur(12px);
+
+            box-shadow:
+                0 0 18px rgba(230, 202, 101, 0.18);
+
+            transition:
+                transform 0.35s ease,
+                box-shadow 0.35s ease,
+                background 0.35s ease;
+        }
+
+        .music-float-btn:hover {
+            transform: scale(1.1) rotate(8deg);
+            background: rgba(230, 202, 101, 0.25);
+            box-shadow:
+                0 0 28px rgba(230, 202, 101, 0.42);
+        }
+
+        .music-playing {
+            animation: musicPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes musicPulse {
+            0%,100% {
+                box-shadow: 0 0 18px rgba(230,202,101,0.20);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(230,202,101,0.55);
+            }
+        }
+
+        /* ===============================
+           الحاوية
+        =============================== */
+
+        .app-container {
+            width: min(650px, calc(100% - 30px));
+            margin: 0 auto;
+            padding: 20px 0 35px;
+            position: relative;
+            z-index: 5;
+        }
+
+        /* ===============================
+           بوابة الدخول
+        =============================== */
+
+        #entry-gate {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+            background: rgba(3,18,12,0.94);
+            backdrop-filter: blur(18px);
+
+            transition:
+                opacity 1s ease,
+                visibility 1s ease;
+        }
+
+        .gate-card {
+            position: relative;
+            width: min(450px, 100%);
+            padding: 48px 28px;
+            text-align: center;
+
+            background: rgba(7,25,17,0.87);
+
+            border: 1px solid rgba(230,202,101,0.75);
+            border-radius: 30px;
+
+            box-shadow:
+                0 30px 80px rgba(0,0,0,0.8),
+                0 0 45px rgba(230,202,101,0.16);
+
+            overflow: hidden;
+        }
+
+        .gate-card::after {
+            content: "";
+            position: absolute;
+            top: -30%;
+            left: -120%;
+            width: 80%;
+            height: 160%;
+            transform: rotate(20deg);
+
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255,245,192,0.17),
+                transparent
+            );
+
+            animation: gateSweep 4.5s ease-in-out infinite;
+        }
+
+        @keyframes gateSweep {
+            0% { left: -120%; }
+            60%,100% { left: 170%; }
+        }
+
+        .gate-card h1 {
+            position: relative;
+            z-index: 1;
+
+            font-family: 'Reem Kufi', sans-serif;
+            color: var(--gold-light);
+            font-size: 2.7rem;
+            margin-bottom: 15px;
+        }
+
+        .gate-card p {
+            position: relative;
+            z-index: 1;
+
+            font-family: 'Amiri', serif;
+            color: var(--cream-text);
+            font-size: 1.2rem;
+            line-height: 1.9;
+            margin-bottom: 30px;
+        }
+
+        .royal-enter-btn {
+            position: relative;
+            z-index: 2;
+
+            padding: 15px 38px;
+            border-radius: 50px;
+
+            border: 1px solid var(--gold-light);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--gold-light),
+                    var(--gold-primary),
+                    var(--gold-dark)
+                );
+
+            color: var(--royal-bg);
+
+            font-family: 'Reem Kufi', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 7px 28px rgba(230,202,101,0.30);
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .royal-enter-btn:hover {
+            transform: scale(1.06);
+            box-shadow:
+                0 10px 35px rgba(230,202,101,0.55);
+        }
+
+        .hide-gate {
+            opacity: 0 !important;
+            visibility: hidden !important;
+        }
+
+        /* ===============================
+           المحتوى
+        =============================== */
+
+        #main-content {
+            display: none;
+            opacity: 0;
+        }
+
+        #main-content.active {
+            display: block;
+            animation: contentAppear 1.1s ease forwards;
+        }
+
+        @keyframes contentAppear {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* ===============================
+           الهيدر
+        =============================== */
+
+        .royal-hero {
+            --accent: var(--hero-accent);
+
+            position: relative;
+            overflow: hidden;
+
+            padding: 48px 22px;
+            text-align: center;
+
+            background: var(--panel-bg);
+
+            border: 1px solid color-mix(in srgb, var(--accent) 75%, transparent);
+            border-radius: 25px;
+
+            box-shadow:
+                0 16px 45px rgba(0,0,0,0.55),
+                0 0 32px color-mix(in srgb, var(--accent) 16%, transparent);
+        }
+
+        .royal-hero::before {
+            content: "";
+            position: absolute;
+            inset: -30% -20%;
+
+            background:
+                linear-gradient(
+                    115deg,
+                    transparent 40%,
+                    rgba(255,245,192,0.10) 47%,
+                    rgba(255,255,255,0.26) 50%,
+                    rgba(230,202,101,0.10) 53%,
+                    transparent 60%
+                );
+
+            transform: translateX(-95%);
+            animation: heroSweep 5s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes heroSweep {
+            0%, 25% {
+                transform: translateX(-95%);
+            }
+
+            72%,100% {
+                transform: translateX(95%);
+            }
+        }
+
+        .bismillah {
+            position: relative;
+            z-index: 1;
+
+            font-family: 'Amiri', serif;
+            font-size: 1.4rem;
+            color: var(--gold-primary);
+            margin-bottom: 17px;
+        }
+
+        .hero-intro {
+            position: relative;
+            z-index: 1;
+
+            font-family: 'Amiri', serif;
+            font-size: 1.18rem;
+            color: var(--cream-text);
+            line-height: 1.9;
+        }
+
+        .royal-hero h2 {
+            position: relative;
+            z-index: 1;
+
+            font-family: 'Reem Kufi', sans-serif;
+            font-size: clamp(2.2rem, 7vw, 3rem);
+            color: var(--gold-light);
+
+            margin: 17px 0;
+
+            text-shadow:
+                0 2px 14px rgba(230,202,101,0.28);
+        }
+
+        .couple-names {
+            position: relative;
+            z-index: 1;
+
+            font-family: 'Reem Kufi', sans-serif;
+            font-size: clamp(2rem, 8vw, 2.65rem);
+
+            color: var(--gold-primary);
+
+            margin: 12px 0 20px;
+
+            letter-spacing: 1px;
+
+            text-shadow:
+                0 0 20px rgba(230,202,101,0.18);
+        }
+
+        .hero-description {
+            position: relative;
+            z-index: 1;
+
+            font-family: 'Amiri', serif;
+            color: var(--cream-text);
+
+            font-size: 1.13rem;
+            line-height: 2;
+
+            margin-bottom: 20px;
+        }
+
+        .event-badge {
+            position: relative;
+            z-index: 1;
+
+            display: inline-block;
+
+            padding: 10px 20px;
+            border-radius: 30px;
+
+            background: rgba(230,202,101,0.07);
+            border: 1px solid rgba(230,202,101,0.48);
+
+            color: var(--gold-primary);
+
+            font-family: 'Reem Kufi', sans-serif;
+            font-size: 1rem;
+        }
+
+        /* ===============================
+           Reveal Scrolling
+           الأقسام قريبة لكن تظهر بالتتابع
+        =============================== */
+
+        .reveal-spacer {
+            height: 95px;
+            position: relative;
+        }
+
+        .reveal-section {
+            --accent: var(--gold-primary);
+
+            position: relative;
+            overflow: hidden;
+
+            opacity: 0;
+            max-height: 0;
+
+            padding-top: 0;
+            padding-bottom: 0;
+
+            margin: 0;
+
+            transform:
+                translateY(32px)
+                scale(0.94);
+
+            filter: blur(5px);
+
+            pointer-events: none;
+
+            border: 1px solid transparent;
+
+            text-align: center;
+
+            transition:
+                opacity 0.8s ease,
+                max-height 1s cubic-bezier(0.22, 1, 0.36, 1),
+                margin 0.7s ease,
+                padding 0.9s ease,
+                transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+                filter 0.9s ease,
+                box-shadow 0.9s ease;
+        }
+
+        .reveal-section.revealed {
+            opacity: 1;
+            max-height: 1400px;
+
+            padding: 35px 25px;
+            margin-bottom: 20px;
+
+            transform:
+                translateY(0)
+                scale(1);
+
+            filter: blur(0);
+
+            pointer-events: auto;
+
+            border-color: color-mix(
+                in srgb,
+                var(--accent) 68%,
+                transparent
+            );
+
+            box-shadow:
+                0 15px 45px rgba(0,0,0,0.58),
+                0 0 38px color-mix(
+                    in srgb,
+                    var(--accent) 18%,
+                    transparent
+                );
+
+            animation:
+                sectionEntrance 1s cubic-bezier(0.22,1,0.36,1) both;
+        }
+
+        @keyframes sectionEntrance {
+            0% {
+                transform:
+                    translateY(34px)
+                    scale(0.94);
+            }
+
+            65% {
+                transform:
+                    translateY(-3px)
+                    scale(1.018);
+            }
+
+            100% {
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+        /* ===============================
+           اللمعة
+        =============================== */
+
+        .reveal-section::before {
+            content: "";
+
+            position: absolute;
+            top: -40%;
+            left: -120%;
+
+            width: 72%;
+            height: 180%;
+
+            transform: rotate(18deg);
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent 0%,
+                    rgba(255,245,192,0.04) 28%,
+                    rgba(255,255,255,0.23) 48%,
+                    rgba(230,202,101,0.11) 52%,
+                    transparent 72%
+                );
+
+            pointer-events: none;
+        }
+
+        .reveal-section.revealed::before {
+            animation:
+                sectionLightSweep 1.55s cubic-bezier(0.2,0.7,0.2,1)
+                0.08s 1 both;
+        }
+
+        @keyframes sectionLightSweep {
+            from {
+                left: -120%;
+            }
+
+            to {
+                left: 150%;
+            }
+        }
+
+        .reveal-section.revealed::after {
+            content: "";
+
+            position: absolute;
+            inset: -2px;
+
+            border-radius: 27px;
+
+            pointer-events: none;
+
+            box-shadow:
+                0 0 0 1px color-mix(
+                    in srgb,
+                    var(--accent) 65%,
+                    transparent
+                ),
+                0 0 28px color-mix(
+                    in srgb,
+                    var(--accent) 26%,
+                    transparent
+                ),
+                0 0 65px color-mix(
+                    in srgb,
+                    var(--accent) 11%,
+                    transparent
+                );
+
+            opacity: 0;
+
+            animation:
+                frameGlow 1.5s ease-out 0.05s 1 forwards;
+        }
+
+        @keyframes frameGlow {
+            0% {
+                opacity: 0;
+            }
+
+            35% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.7;
+            }
+        }
+
+        /* ===============================
+           عناصر الأقسام
+        =============================== */
+
+        .royal-section h3 {
+            position: relative;
+            z-index: 2;
+
+            font-family: 'Reem Kufi', sans-serif;
+            color: var(--gold-primary);
+
+            font-size: clamp(1.65rem, 6vw, 2rem);
+
+            margin-bottom: 13px;
+
+            text-align: center;
+        }
+
+        .royal-section > p {
+            position: relative;
+            z-index: 2;
+
+            font-family: 'Amiri', serif;
+            color: var(--cream-text);
+
+            font-size: 1.13rem;
+            line-height: 1.9;
+
+            margin-bottom: 20px;
+
+            text-align: center;
+        }
+
+        .section-countdown {
+            --accent: var(--countdown-accent);
+        }
+
+        .section-venue {
+            --accent: var(--venue-accent);
+        }
+
+        .section-wishes {
+            --accent: var(--wishes-accent);
+        }
+
+        .section-song {
+            --accent: var(--song-accent);
+        }
+
+        .section-rsvp {
+            --accent: var(--rsvp-accent);
+        }
+
+        /* ===============================
+           Countdown
+        =============================== */
+
+        .countdown-grid {
+            position: relative;
+            z-index: 2;
+
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 10px;
+            margin: 22px auto 25px;
+
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .countdown-box {
+            background: rgba(3,18,12,0.68);
+
+            border: 1px solid rgba(215,208,166,0.38);
+            border-radius: 15px;
+
+            padding: 12px 7px;
+
+            box-shadow:
+                inset 0 0 20px rgba(255,255,255,0.015);
+        }
+
+        .countdown-number {
+            display: block;
+
+            font-family: 'Reem Kufi', sans-serif;
+            color: var(--countdown-accent);
+
+            font-size: 1.7rem;
+
+            text-shadow:
+                0 0 15px rgba(215,208,166,0.18);
+        }
+
+        .countdown-label {
+            font-family: 'Amiri', serif;
+            color: var(--cream-text);
+            font-size: 0.9rem;
+        }
+
+        .calendar-btn {
+            position: relative;
+            z-index: 2;
+
+            display: inline-block;
+
+            text-decoration: none;
+
+            padding: 12px 22px;
+            border-radius: 35px;
+
+            color: var(--royal-bg);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ece6bf,
+                    #d7d0a6,
+                    #aea56e
+                );
+
+            border: 1px solid #fff5c0;
+
+            font-family: 'Reem Kufi', sans-serif;
+            font-size: 1rem;
+            font-weight: bold;
+
+            box-shadow:
+                0 6px 22px rgba(215,208,166,0.16);
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .calendar-btn:hover {
+            transform: translateY(-3px);
+            box-shadow:
+                0 10px 28px rgba(215,208,166,0.26);
+        }
+
+        /* ===============================
+           الخريطة
+        =============================== */
+
+        .map-toggle-btn {
+            position: relative;
+            z-index: 2;
+
+            padding: 13px 28px;
+            border-radius: 35px;
+
+            color: #d8e6d1;
+
+            background: rgba(15,60,42,0.55);
+            border: 1px solid rgba(168,196,157,0.68);
+
+            font-family: 'Reem Kufi', sans-serif;
+            font-size: 1rem;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 6px 20px rgba(0,0,0,0.35);
+
+            transition:
+                transform 0.3s ease,
+                background 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .map-toggle-btn:hover {
+            transform: translateY(-2px);
+            background: rgba(30,86,60,0.7);
+            box-shadow:
+                0 8px 24px rgba(168,196,157,0.18);
+        }
+
+        .map-frame-box {
+            display: none;
+
+            position: relative;
+            z-index: 2;
+
+            height: 260px;
+            width: 100%;
+
+            margin: 22px auto 0;
+
+            overflow: hidden;
+
+            border-radius: 18px;
+            border: 1px solid rgba(168,196,157,0.65);
+
+            box-shadow:
+                0 12px 30px rgba(0,0,0,0.55),
+                0 0 22px rgba(168,196,157,0.10);
+        }
+
+        .map-frame-box iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .map-hint-text {
+            font-family: 'Amiri', serif !important;
+            color: #b8d0ae !important;
+            font-size: 0.96rem !important;
+            margin-top: 12px !important;
+            text-align: center !important;
+        }
+
+        /* ===============================
+           النموذج
+        =============================== */
+
+        .wedding-form {
+            position: relative;
+            z-index: 2;
+        }
+
+        .royal-form {
+            display: flex;
+            flex-direction: column;
+            gap: 17px;
+
+            width: min(500px, 100%);
+            margin: 0 auto;
+
+            text-align: center;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+        }
+
+        .form-group label {
+            font-family: 'Amiri', serif;
+            color: var(--gold-light);
+            font-size: 1.08rem;
+            text-align: center;
+        }
+
+        .royal-form input,
+        .royal-form textarea,
+        .royal-form select {
+            width: 100%;
+
+            padding: 14px 15px;
+
+            background: rgba(2,12,8,0.72);
+
+            border: 1px solid rgba(230,202,101,0.30);
+            border-radius: 12px;
+
+            color: var(--cream-text);
+
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+
+            outline: none;
+
+            text-align: center;
+
+            transition:
+                border-color 0.3s ease,
+                box-shadow 0.3s ease,
+                transform 0.25s ease;
+        }
+
+        .royal-form input::placeholder,
+        .royal-form textarea::placeholder {
+            color: rgba(247,243,233,0.48);
+            text-align: center;
+        }
+
+        .royal-form input:focus,
+        .royal-form textarea:focus,
+        .royal-form select:focus {
+            border-color: rgba(230,202,101,0.85);
+
+            box-shadow:
+                0 0 17px rgba(230,202,101,0.16);
+
+            transform: translateY(-1px);
+        }
+
+        .royal-form textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        .field-note {
+            font-family: 'Amiri', serif;
+            font-size: 0.93rem;
+            color: rgba(247,243,233,0.58);
+            line-height: 1.7;
+            text-align: center;
+        }
+
+        /* ===============================
+           قسم الأغنية
+        =============================== */
+
+        .song-card {
+            position: relative;
+            z-index: 2;
+
+            margin: 0 auto 4px;
+            padding: 15px 16px;
+
+            width: 100%;
+
+            border: 1px solid rgba(201,183,132,0.25);
+            border-radius: 14px;
+
+            background: rgba(255,255,255,0.015);
+
+            text-align: center;
+        }
+
+        .song-card strong {
+            display: block;
+            font-family: 'Reem Kufi', sans-serif;
+            color: var(--song-accent);
+            margin-bottom: 6px;
+        }
+
+        /* ===============================
+           خيارات الحضور
+        =============================== */
+
+        .radio-options {
+            display: flex;
+            gap: 22px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 4px;
+        }
+
+        .radio-options label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+
+            cursor: pointer;
+
+            font-family: 'Amiri', serif;
+            color: var(--cream-text);
+            font-size: 1.1rem;
+        }
+
+        .radio-options input {
+            width: 19px;
+            height: 19px;
+            accent-color: var(--gold-primary);
+            cursor: pointer;
+        }
+
+        .strict-attendance-warning {
+            display: none;
+
+            margin: 5px auto 0;
+
+            padding: 12px;
+
+            border-radius: 11px;
+
+            border: 1px solid rgba(214,167,125,0.45);
+            background: rgba(90,55,40,0.17);
+
+            color: #e7c4aa;
+
+            font-family: 'Amiri', serif;
+            font-size: 1rem;
+            line-height: 1.8;
+
+            text-align: center;
+        }
+
+        /* ===============================
+           زر الإرسال
+        =============================== */
+
+        .royal-submit-btn {
+            width: 100%;
+
+            margin-top: 5px;
+            padding: 15px;
+
+            border-radius: 13px;
+
+            border: 1px solid var(--gold-light);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--gold-light),
+                    var(--gold-primary),
+                    var(--gold-dark)
+                );
+
+            color: var(--royal-bg);
+
+            font-family: 'Reem Kufi', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 7px 22px rgba(230,202,101,0.22);
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease,
+                opacity 0.3s ease;
+        }
+
+        .royal-submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow:
+                0 10px 28px rgba(230,202,101,0.40);
+        }
+
+        .royal-submit-btn:disabled {
+            opacity: 0.65;
+            cursor: wait;
+            transform: none;
+        }
+
+        /* ===============================
+           رسائل النتيجة
+        =============================== */
+
+        .response-alert {
+            display: none;
+
+            position: relative;
+            z-index: 3;
+
+            margin-top: 20px;
+            padding: 22px;
+
+            border-radius: 15px;
+
+            font-family: 'Amiri', serif;
+
+            font-size: 1.18rem;
+            line-height: 1.9;
+
+            text-align: center;
+
+            animation: responseAppear 0.7s ease both;
+        }
+
+        @keyframes responseAppear {
+            from {
+                opacity: 0;
+                transform: translateY(15px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .success-alert {
+            border: 1px solid rgba(230,202,101,0.65);
+            background: rgba(14,50,34,0.38);
+            color: var(--gold-light);
+
+            box-shadow:
+                0 0 28px rgba(230,202,101,0.12);
+        }
+
+        .apology-alert {
+            border: 1px solid rgba(215,167,125,0.62);
+            background: rgba(75,40,28,0.25);
+            color: #e9c5ac;
+
+            box-shadow:
+                0 0 28px rgba(215,167,125,0.09);
+        }
+
+        .error-alert {
+            border: 1px solid rgba(200,80,80,0.62);
+            background: rgba(70,25,25,0.30);
+            color: #ffb6b6;
+        }
+
+        /* ===============================
+           Footer
+        =============================== */
+
+        .royal-footer {
+            text-align: center;
+
+            padding: 30px 10px 10px;
+
+            color: var(--gold-light);
+
+            font-family: 'Amiri', serif;
+            font-size: 1rem;
+
+            border-top: 1px solid rgba(230,202,101,0.20);
+        }
+
+        .royal-footer span {
+            color: var(--gold-primary);
+            font-weight: bold;
+        }
+
+        /* ===============================
+           Responsive
+        =============================== */
+
+        @media (max-width: 600px) {
+
+            body::after {
+                background-attachment: scroll;
+            }
+
+            .app-container {
+                width: min(650px, calc(100% - 20px));
+                padding-top: 15px;
+            }
+
+            .royal-hero {
+                padding: 42px 17px;
+            }
+
+            .royal-section.revealed {
+                padding: 30px 18px;
+            }
+
+            .countdown-grid {
+                gap: 7px;
+            }
+
+            .countdown-box {
+                padding: 10px 5px;
+            }
+
+            .countdown-number {
+                font-size: 1.45rem;
+            }
+
+            .countdown-label {
+                font-size: 0.82rem;
+            }
+
+            .reveal-spacer {
+                height: 75px;
+            }
+
+            #interactive-light {
+                width: 230px;
+                height: 230px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- الإضاءة التفاعلية -->
+    <div id="interactive-light"></div>
+
+    <!-- خطوط ضوئية -->
+    <div class="light-ribbons" aria-hidden="true">
+        <span class="light-ribbon"></span>
+        <span class="light-ribbon"></span>
+        <span class="light-ribbon"></span>
+    </div>
+
+    <!-- الموسيقى -->
+    <button
+        class="music-float-btn"
+        id="musicToggle"
+        title="تشغيل / إيقاف الموسيقى"
+        aria-label="تشغيل أو إيقاف الموسيقى">
+        🎵
+    </button>
+
+    <audio id="bgMusic" loop preload="none">
+        <source src="wedding-song.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- ===============================
+         بوابة الدخول
+    =============================== -->
+
+    <div id="entry-gate">
+
+        <div class="gate-card">
+
+            <h1>فاطمة & علي</h1>
+
+            <p>
+                بفرحةٍ انتظرناها، وبقلوبٍ يملؤها الشوق،
+                ندعوكم لفتح باب فرحتنا ومشاركتنا ليلة العمر.
+            </p>
+
+            <button class="royal-enter-btn" id="openGateBtn">
+                فتح الدعوة الملكية
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- ===============================
+         المحتوى الرئيسي
+    =============================== -->
+
+    <main class="app-container" id="main-content">
+
+        <!-- ===============================
+             الهيدر
+        =============================== -->
+
+        <header class="royal-hero">
+
+            <div class="bismillah">
+                بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+            </div>
+
+            <p class="hero-intro">
+                حين يكتب الله للفرح موعدًا، تصبح القلوب أقرب من أي وقتٍ مضى.
+            </p>
+
+            <h2>
+                ليلة العمر تجمعنا
+            </h2>
+
+            <div class="couple-names">
+                فاطمة & علي
+            </div>
+
+            <p class="hero-description">
+                يسرّنا أن تكونوا بين أهل الفرح،
+                <br>
+                وأن تزداد ليلتنا بهجةً بحضوركم ودعواتكم الصادقة.
+            </p>
+
+            <div class="event-badge">
+                📅 25 نوفمبر 2026
+                &nbsp; | &nbsp;
+                ⏰ الثامنة مساءً
+            </div>
+
+        </header>
+
+        <!-- ===============================
+             فاصلة للقسم الأول
+        =============================== -->
+
+        <div class="reveal-spacer" data-target="countdown"></div>
+
+        <!-- ===============================
+             العد التنازلي
+        =============================== -->
+
+        <section
+            class="royal-section reveal-section section-countdown"
+            id="countdown">
+
+            <h3>
+                ⏳ موعدنا يقترب
+            </h3>
+
+            <p>
+                وكل ثانية تقرّبنا من ليلةٍ نتمنى أن تكون أجمل ذكرياتنا معكم.
+            </p>
+
+            <div class="countdown-grid">
+
+                <div class="countdown-box">
+                    <span class="countdown-number" id="days">00</span>
+                    <span class="countdown-label">يوم</span>
+                </div>
+
+                <div class="countdown-box">
+                    <span class="countdown-number" id="hours">00</span>
+                    <span class="countdown-label">ساعة</span>
+                </div>
+
+                <div class="countdown-box">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <span class="countdown-label">دقيقة</span>
+                </div>
+
+                <div class="countdown-box">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-label">ثانية</span>
+                </div>
+
+            </div>
+
+            <a
+                href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=حفل+زفاف+فاطمة+وعلي&dates=20261125T170000Z/20261125T220000Z&details=يسعدنا+حضوركم+حفل+زفافنا+المبارك+في+قاعة+الأندلس+الكبرى&location=قاعة+الأندلس+الكبرى،+حلب"
+                target="_blank"
+                class="calendar-btn">
+
+                📅 حفظ الموعد في تقويم Google
+
+            </a>
+
+        </section>
+
+        <!-- ===============================
+             فاصلة القاعة
+        =============================== -->
+
+        <div class="reveal-spacer" data-target="venue"></div>
+
+        <!-- ===============================
+             القاعة
+        =============================== -->
+
+        <section
+            class="royal-section reveal-section section-venue"
+            id="venue">
+
+            <h3>
+                🏛️ أين سنلتقي؟
+            </h3>
+
+            <p>
+                يُقام حفل الزفاف المبارك في
+                <strong>قاعة الأندلس الكبرى - حلب</strong>
+            </p>
+
+            <button
+                class="map-toggle-btn"
+                id="mapToggleBtn">
+
+                📍 عرض موقع الحفل
+
+            </button>
+
+            <div
+                class="map-frame-box"
+                id="mapFrameWrapper">
+
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3295.2!2d37.1343!3d36.2021!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzbCsDEyJzA3LjUiTiAzN8KwMDgnMDIuNSJF!5e0!3m2!1sar!2ssy!4v1600000000000!5m2!1sar!2ssy"
+                    allowfullscreen
+                    loading="lazy">
+                </iframe>
+
+            </div>
+
+            <p
+                class="map-hint-text"
+                id="mapHintText"
+                style="display:none;">
+
+                📍 تم تحديد موقع القاعة على الخريطة
+
+            </p>
+
+        </section>
+
+        <!-- ===============================
+             النموذج
+        =============================== -->
+
+        <form
+            class="wedding-form"
+            id="weddingForm"
+            action="https://api.web3forms.com/submit"
+            method="POST">
+
+            <input
+                type="hidden"
+                name="access_key"
+                value="35feb6fc-752c-4328-8d60-b08ceada65c9">
+
+            <input
+                type="hidden"
+                name="subject"
+                value="دعوة زفاف فاطمة وعلي - بيانات المدعو كاملة">
+
+            <input
+                type="hidden"
+                name="form_source"
+                value="دعوة زفاف فاطمة وعلي">
+
+            <!-- ===============================
+                 الأمنيات
+            =============================== -->
+
+            <div class="reveal-spacer" data-target="wishes"></div>
+
+            <section
+                class="royal-section reveal-section section-wishes"
+                id="wishes">
+
+                <h3>
+                    ✨ اتركوا لنا كلمة من القلب
+                </h3>
+
+                <p>
+                    كلمة صغيرة منكم قد تبقى ذكرى جميلة في ليلة العمر.
+                </p>
+
+                <div class="royal-form">
+
+                    <div class="form-group">
+
+    <label for="guestName">
+        الاسم الكريم:
+    </label>
+
+    <input
+        type="text"
+        id="guestName"
+        name="guest_name"
+        placeholder="اكتب اسمك الكامل..."
+        autocomplete="name"
+        pattern="[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\s]+"
+        title="يرجى كتابة الاسم بالأحرف العربية فقط"
+        required>
+
+</div>
+
+                    <div class="form-group">
+
+                        <label for="wishMessage">
+                            أمنيتك للعروسين:
+                        </label>
+
+                        <textarea
+                            id="wishMessage"
+                            name="wish_message"
+                            rows="4"
+                            placeholder="اكتب لنا تهنئتك أو أمنيتك الجميلة..."
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- ===============================
+                 الأغنية
+            =============================== -->
+
+            <div class="reveal-spacer" data-target="song"></div>
+
+            <section
+                class="royal-section reveal-section section-song"
+                id="song">
+
+                <h3>
+                    🎶 الأغنية التي تحب سماعها
+                </h3>
+
+                <p>
+                    لكل فرحة أغنية تبقى مرتبطة بذكرياتها...
+                    اكتبوا لنا أغنيتكم المفضلة.
+                </p>
+
+                <div class="royal-form">
+
+                    <div class="song-card">
+
+                        <strong>
+                            اقتراح لطيف ✨
+                        </strong>
+
+                        يمكنك كتابة اسم الأغنية واسم المغني معًا.
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="favoriteSong">
+                            أغنيتك المفضلة:
+                        </label>
+
+                        <input
+                            type="text"
+                            id="favoriteSong"
+                            name="favorite_song"
+                            placeholder="مثال: Perfect - Ed Sheeran"
+                            autocomplete="off">
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- ===============================
+                 RSVP
+            =============================== -->
+
+            <div class="reveal-spacer" data-target="rsvp"></div>
+
+            <section
+                class="royal-section reveal-section section-rsvp"
+                id="rsvp">
+
+                <h3>
+                    💌 تأكيد الحضور
+                </h3>
+
+                <p>
+                    حضوركم يسعدنا، ونرجو تسجيل الإجابة حتى نتمكن من ترتيب المقاعد والضيافة بدقة.
+                </p>
+
+                <div id="rsvpFields">
+
+                    <div class="royal-form">
+
+                        <div class="form-group">
+
+                            <label>
+                                هل تشرفنا بحضورك؟
+                            </label>
+
+                            <div class="radio-options">
+
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="attendance"
+                                        value="نعم، سأحضر بكل سرور"
+                                        id="attendYes"
+                                        required>
+
+                                    نعم، سأحضر
+                                </label>
+
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="attendance"
+                                        value="أعتذر عن الحضور"
+                                        id="attendNo">
+
+                                    أعتذر
+                                </label>
+
+                            </div>
+
+                        </div>
+
+                        <div
+                            class="form-group"
+                            id="countGroup"
+                            style="display:none;">
+
+                            <label for="guestCount">
+                                عدد الأفراد الحاضرين:
+                            </label>
+
+                            <select
+                                name="guest_count"
+                                id="guestCount"
+                                disabled>
+
+                                <option value="">
+                                    اختر العدد
+                                </option>
+
+                                <option value="1">
+                                    فرد واحد (1)
+                                </option>
+
+                                <option value="2">
+                                    فردان (2)
+                                </option>
+
+                                <option value="3">
+                                    ثلاثة أشخاص (3)
+                                </option>
+
+                                <option value="4">
+                                    أربعة أشخاص (4)
+                                </option>
+
+                            </select>
+
+                            <div
+                                class="strict-attendance-warning"
+                                id="strictWarning">
+
+                                ⚠️ يرجى الالتزام بعدد الأشخاص الذي تم تسجيله،
+                                لأن ترتيبات المقاعد والضيافة تعتمد على العدد المؤكد.
+
+                            </div>
+
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="royal-submit-btn"
+                            id="submitBtn">
+
+                            إرسال المعلومات
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- نجاح -->
+                <div
+                    class="response-alert success-alert"
+                    id="successMsg">
+
+                    ✨ <strong>تم تسجيل معلوماتكم بنجاح</strong>
+                    <br>
+                    شكرًا لمشاركتنا فرحتنا.
+
+                </div>
+
+                <!-- اعتذار -->
+                <div
+                    class="response-alert apology-alert"
+                    id="apologyMsg">
+
+                    🌹 <strong>تم تسجيل اعتذاركم بنجاح</strong>
+                    <br>
+                    نشكركم على إعلامنا، ونتمنى أن تجمعنا بكم مناسبات سعيدة قادمة.
+
+                </div>
+
+                <!-- خطأ -->
+                <div
+                    class="response-alert error-alert"
+                    id="errorMsg">
+
+                    ⚠️ حدثت مشكلة أثناء إرسال المعلومات.
+                    يرجى التأكد من الاتصال بالإنترنت والمحاولة مرة أخرى.
+
+                </div>
+
+            </section>
+
+        </form>
+
+        <!-- ===============================
+             Footer
+        =============================== -->
+
+        <footer class="royal-footer">
+
+            تصميم وتطوير النظام الملكي:
+            <span>فِداء مُحَيمِد | Fidaa Muhimed</span>
+
+            &nbsp; | &nbsp;
+
+            للتواصل:
+            <span>0984123234</span>
+
+        </footer>
+
+    </main>
+
+    <script>
+
+        /* ==========================================
+           العناصر الأساسية
+        ========================================== */
+
+        const entryGate =
+            document.getElementById('entry-gate');
+
+        const mainContent =
+            document.getElementById('main-content');
+
+        const openGateBtn =
+            document.getElementById('openGateBtn');
+
+        const bgMusic =
+            document.getElementById('bgMusic');
+
+        const musicToggle =
+            document.getElementById('musicToggle');
+
+        const interactiveLight =
+            document.getElementById('interactive-light');
+
+        const guestName = document.getElementById('guestName');
+
+guestName.addEventListener('input', () => {
+
+    guestName.value = guestName.value.replace(
+        /[^\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\s]/g,
+        ''
+    );
+
+});
+
+        /* ==========================================
+           فتح الدعوة
+        ========================================== */
+
+        openGateBtn.addEventListener('click', async () => {
+
+            entryGate.classList.add('hide-gate');
+            mainContent.classList.add('active');
+
+            try {
+
+                await bgMusic.play();
+
+                musicToggle.textContent = '🎵';
+                musicToggle.classList.add('music-playing');
+
+            } catch (error) {
+
+                musicToggle.textContent = '🔇';
+
+            }
+
+            setTimeout(() => {
+
+                entryGate.style.display = 'none';
+
+            }, 1000);
+
+        });
+
+        /* ==========================================
+           الموسيقى
+        ========================================== */
+
+        musicToggle.addEventListener('click', async () => {
+
+            if (bgMusic.paused) {
+
+                try {
+
+                    await bgMusic.play();
+
+                    musicToggle.textContent = '🎵';
+                    musicToggle.classList.add('music-playing');
+
+                } catch (error) {
+
+                    musicToggle.textContent = '🔇';
+
+                }
+
+            } else {
+
+                bgMusic.pause();
+
+                musicToggle.textContent = '🔇';
+                musicToggle.classList.remove('music-playing');
+
+            }
+
+        });
+
+        /* ==========================================
+           الإضاءة التفاعلية
+        ========================================== */
+
+        let lightTimeout;
+
+        function moveInteractiveLight(x, y) {
+
+            interactiveLight.style.left = `${x}px`;
+            interactiveLight.style.top = `${y}px`;
+            interactiveLight.style.opacity = '1';
+
+            clearTimeout(lightTimeout);
+
+            lightTimeout = setTimeout(() => {
+
+                interactiveLight.style.opacity = '0';
+
+            }, 900);
+
+        }
+
+        window.addEventListener(
+            'pointermove',
+            (event) => {
+
+                moveInteractiveLight(
+                    event.clientX,
+                    event.clientY
+                );
+
+            },
+            { passive: true }
+        );
+
+        window.addEventListener(
+            'pointerdown',
+            (event) => {
+
+                moveInteractiveLight(
+                    event.clientX,
+                    event.clientY
+                );
+
+            },
+            { passive: true }
+        );
+
+        /* ==========================================
+           ظهور الأقسام بالتتابع
+           بدون ظهور أكثر من قسم سوا
+        ========================================== */
+
+        const revealSpacers =
+            Array.from(
+                document.querySelectorAll('.reveal-spacer')
+            );
+
+        const sectionMap = {};
+
+        document
+            .querySelectorAll('.reveal-section')
+            .forEach(section => {
+
+                sectionMap[section.id] = section;
+
+            });
+
+        let currentRevealIndex = 0;
+        let lastRevealScroll = window.scrollY;
+        let revealLocked = false;
+
+        function revealNextSection() {
+
+            if (revealLocked) return;
+
+            if (currentRevealIndex >= revealSpacers.length) {
+                return;
+            }
+
+            const spacer =
+                revealSpacers[currentRevealIndex];
+
+            const targetId =
+                spacer.dataset.target;
+
+            const targetSection =
+                sectionMap[targetId];
+
+            if (!targetSection) {
+                currentRevealIndex++;
+                return;
+            }
+
+            const rect =
+                spacer.getBoundingClientRect();
+
+            const viewportHeight =
+                window.innerHeight;
+
+            const isInRevealZone =
+                rect.top < viewportHeight * 0.88 &&
+                rect.bottom > viewportHeight * 0.08;
+
+            const hasScrolledEnough =
+                Math.abs(window.scrollY - lastRevealScroll) >=
+                (window.innerWidth <= 600 ? 55 : 75);
+
+            if (
+                isInRevealZone &&
+                hasScrolledEnough &&
+                !targetSection.classList.contains('revealed')
+            ) {
+
+                targetSection.classList.add('revealed');
+
+                currentRevealIndex++;
+
+                lastRevealScroll =
+                    window.scrollY;
+
+                revealLocked = true;
+
+                setTimeout(() => {
+
+                    revealLocked = false;
+
+                }, 500);
+
+            }
+
+        }
+
+        window.addEventListener(
+            'scroll',
+            revealNextSection,
+            { passive: true }
+        );
+
+        window.addEventListener(
+            'resize',
+            revealNextSection,
+            { passive: true }
+        );
+
+        /* ==========================================
+           العداد
+        ========================================== */
+
+        const weddingDate =
+            new Date(
+                "November 25, 2026 20:00:00"
+            ).getTime();
+
+        function updateCountdown() {
+
+            const now =
+                new Date().getTime();
+
+            const distance =
+                weddingDate - now;
+
+            const daysEl =
+                document.getElementById("days");
+
+            const hoursEl =
+                document.getElementById("hours");
+
+            const minutesEl =
+                document.getElementById("minutes");
+
+            const secondsEl =
+                document.getElementById("seconds");
+
+            if (distance <= 0) {
+
+                daysEl.innerText = "00";
+                hoursEl.innerText = "00";
+                minutesEl.innerText = "00";
+                secondsEl.innerText = "00";
+
+                return;
+            }
+
+            const days =
+                Math.floor(
+                    distance /
+                    (1000 * 60 * 60 * 24)
+                );
+
+            const hours =
+                Math.floor(
+                    (distance %
+                    (1000 * 60 * 60 * 24)) /
+                    (1000 * 60 * 60)
+                );
+
+            const minutes =
+                Math.floor(
+                    (distance %
+                    (1000 * 60 * 60)) /
+                    (1000 * 60)
+                );
+
+            const seconds =
+                Math.floor(
+                    (distance %
+                    (1000 * 60)) /
+                    1000
+                );
+
+            daysEl.innerText =
+                String(days).padStart(2, '0');
+
+            hoursEl.innerText =
+                String(hours).padStart(2, '0');
+
+            minutesEl.innerText =
+                String(minutes).padStart(2, '0');
+
+            secondsEl.innerText =
+                String(seconds).padStart(2, '0');
+
+        }
+
+        updateCountdown();
+
+        setInterval(
+            updateCountdown,
+            1000
+        );
+
+        /* ==========================================
+           الخريطة
+        ========================================== */
+
+        const mapToggleBtn =
+            document.getElementById(
+                'mapToggleBtn'
+            );
+
+        const mapFrameWrapper =
+            document.getElementById(
+                'mapFrameWrapper'
+            );
+
+        const mapHintText =
+            document.getElementById(
+                'mapHintText'
+            );
+
+        mapToggleBtn.addEventListener(
+            'click',
+            () => {
+
+                const isVisible =
+                    mapFrameWrapper.style.display === 'block';
+
+                if (isVisible) {
+
+                    mapFrameWrapper.style.display =
+                        'none';
+
+                    mapHintText.style.display =
+                        'none';
+
+                    mapToggleBtn.textContent =
+                        '📍 عرض موقع الحفل';
+
+                } else {
+
+                    mapFrameWrapper.style.display =
+                        'block';
+
+                    mapHintText.style.display =
+                        'block';
+
+                    mapToggleBtn.textContent =
+                        '📍 إخفاء الموقع';
+
+                }
+
+            }
+        );
+
+        /* ==========================================
+           خيارات الحضور
+        ========================================== */
+
+        const attendYes =
+            document.getElementById(
+                'attendYes'
+            );
+
+        const attendNo =
+            document.getElementById(
+                'attendNo'
+            );
+
+        const countGroup =
+            document.getElementById(
+                'countGroup'
+            );
+
+        const strictWarning =
+            document.getElementById(
+                'strictWarning'
+            );
+
+        const guestCountSelect =
+            document.getElementById(
+                'guestCount'
+            );
+
+        function showGuestCount() {
+
+            countGroup.style.display =
+                'flex';
+
+            strictWarning.style.display =
+                'block';
+
+            guestCountSelect.disabled =
+                false;
+
+            guestCountSelect.required =
+                true;
+
+        }
+
+        function hideGuestCount() {
+
+            countGroup.style.display =
+                'none';
+
+            strictWarning.style.display =
+                'none';
+
+            guestCountSelect.disabled =
+                true;
+
+            guestCountSelect.required =
+                false;
+
+            guestCountSelect.value =
+                '';
+
+        }
+
+        attendYes.addEventListener(
+            'change',
+            () => {
+
+                if (attendYes.checked) {
+                    showGuestCount();
+                }
+
+            }
+        );
+
+        attendNo.addEventListener(
+            'change',
+            () => {
+
+                if (attendNo.checked) {
+                    hideGuestCount();
+                }
+
+            }
+        );
+
+        /* ==========================================
+           إرسال المعلومات
+        ========================================== */
+
+        const weddingForm =
+            document.getElementById(
+                'weddingForm'
+            );
+
+        const submitBtn =
+            document.getElementById(
+                'submitBtn'
+            );
+
+        const rsvpFields =
+            document.getElementById(
+                'rsvpFields'
+            );
+
+        const successMsg =
+            document.getElementById(
+                'successMsg'
+            );
+
+        const apologyMsg =
+            document.getElementById(
+                'apologyMsg'
+            );
+
+        const errorMsg =
+            document.getElementById(
+                'errorMsg'
+            );
+
+        weddingForm.addEventListener(
+            'submit',
+            async (event) => {
+
+                event.preventDefault();
+
+                successMsg.style.display =
+                    'none';
+
+                apologyMsg.style.display =
+                    'none';
+
+                errorMsg.style.display =
+                    'none';
+
+                const attendanceInput =
+                    document.querySelector(
+                        'input[name="attendance"]:checked'
+                    );
+
+                if (!attendanceInput) {
+                    return;
+                }
+
+                submitBtn.disabled =
+                    true;
+
+                submitBtn.textContent =
+                    'جارٍ إرسال المعلومات...';
+
+                const formData =
+                    new FormData(
+                        weddingForm
+                    );
+
+                formData.set(
+                    'attendance',
+                    attendanceInput.value
+                );
+
+                try {
+
+                    const response =
+                        await fetch(
+                            weddingForm.action,
+                            {
+                                method: 'POST',
+                                body: formData,
+                                headers: {
+                                    'Accept':
+                                        'application/json'
+                                }
+                            }
+                        );
+
+                    const result =
+                        await response.json();
+
+                    if (
+                        !response.ok ||
+                        !result.success
+                    ) {
+                        throw new Error(
+                            'Submission failed'
+                        );
+                    }
+
+                    rsvpFields.style.display =
+                        'none';
+
+                    if (
+                        attendanceInput.value ===
+                        'أعتذر عن الحضور'
+                    ) {
+
+                        apologyMsg.style.display =
+                            'block';
+
+                    } else {
+
+                        successMsg.style.display =
+                            'block';
+
+                    }
+
+                    submitBtn.disabled =
+                        false;
+
+                } catch (error) {
+
+                    errorMsg.style.display =
+                        'block';
+
+                    submitBtn.disabled =
+                        false;
+
+                    submitBtn.textContent =
+                        'إعادة إرسال المعلومات';
+
+                }
+
+            }
+        );
+
+        /* ==========================================
+           تفاعل الأقسام على سطح المكتب
+        ========================================== */
+
+        const panels =
+            document.querySelectorAll(
+                '.royal-hero, .reveal-section'
+            );
+
+        panels.forEach(panel => {
+
+            panel.addEventListener(
+                'pointermove',
+                (event) => {
+
+                    if (window.innerWidth < 800) {
+                        return;
+                    }
+
+                    const rect =
+                        panel.getBoundingClientRect();
+
+                    const x =
+                        event.clientX -
+                        rect.left;
+
+                    const y =
+                        event.clientY -
+                        rect.top;
+
+                    const rotateY =
+                        ((x / rect.width) - 0.5) * 1.4;
+
+                    const rotateX =
+                        ((y / rect.height) - 0.5) * -1.4;
+
+                    panel.style.transform =
+                        `perspective(1000px)
+                         rotateX(${rotateX}deg)
+                         rotateY(${rotateY}deg)
+                         translateY(0)
+                         scale(1.005)`;
+
+                },
+                { passive: true }
+            );
+
+            panel.addEventListener(
+                'pointerleave',
+                () => {
+
+                    panel.style.transform =
+                        '';
+
+                }
+            );
+
+        });
+
+    </script>
+
+</body>
+</html>
