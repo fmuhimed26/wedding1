@@ -1212,18 +1212,41 @@
         =============================== */
 
         .royal-footer {
-            text-align: center;
 
-            padding: 30px 10px 10px;
+    opacity: 0;
 
-            color: var(--gold-light);
+    transform: translateY(30px);
 
-            font-family: 'Amiri', serif;
-            font-size: 1rem;
+    text-align: center;
 
-            border-top: 1px solid rgba(230,202,101,0.20);
-        }
+    padding: 30px 10px 10px;
 
+    color: var(--gold-light);
+
+    font-family: 'Amiri', serif;
+
+    font-size: 1rem;
+
+    border-top:
+        1px solid rgba(
+            230,
+            202,
+            101,
+            0.20
+        );
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.royal-footer.show-footer {
+
+    opacity: 1;
+
+    transform: translateY(0);
+
+}
         .royal-footer span {
             color: var(--gold-primary);
             font-weight: bold;
@@ -2097,30 +2120,33 @@
            فتح الدعوة
         ========================================== */
 
-        openGateBtn.addEventListener(
-            'click',
-            async () => {
+      openGateBtn.addEventListener(
+    'click',
+    async () => {
 
-                entryGate.classList.add(
-                    'hide-gate'
-                );
-
-                mainContent.classList.add(
-                    'active'
-                );
-
-                await startMusic();
-
-                setTimeout(() => {
-
-                    entryGate.style.display =
-                        'none';
-
-                }, 1000);
-
-            }
+        entryGate.classList.add(
+            'hide-gate'
         );
 
+        mainContent.classList.add(
+            'active'
+        );
+
+        document
+            .getElementById('countdown')
+            .classList.add('revealed');
+
+        await startMusic();
+
+        setTimeout(() => {
+
+            entryGate.style.display =
+                'none';
+
+        }, 1000);
+
+    }
+);
 
         /* ==========================================
            زر الموسيقى
@@ -2214,150 +2240,65 @@
             },
             { passive: true }
         );
+/* ==========================================
+   ظهور الأقسام عند الوصول إليها
+========================================== */
 
+const revealSections =
+    document.querySelectorAll('.reveal-section');
 
-        /* ==========================================
-           ظهور الأقسام بالتتابع
-        ========================================== */
+const footer =
+    document.querySelector('.royal-footer');
 
-        const revealSpacers =
-            Array.from(
-                document.querySelectorAll(
-                    '.reveal-spacer'
-                )
-            );
+const observer =
+    new IntersectionObserver(
+        (entries) => {
 
+            entries.forEach(entry => {
 
-        const sectionMap = {};
+                if (entry.isIntersecting) {
 
+                    entry.target.classList.add(
+                        'revealed'
+                    );
 
-        document
-            .querySelectorAll('.reveal-section')
-            .forEach(section => {
+                    observer.unobserve(
+                        entry.target
+                    );
 
-                sectionMap[section.id] =
-                    section;
+                    const allVisible =
+                        [...revealSections].every(
+                            section =>
+                                section.classList.contains(
+                                    'revealed'
+                                )
+                        );
+
+                    if (allVisible) {
+
+                        footer.classList.add(
+                            'show-footer'
+                        );
+
+                    }
+
+                }
 
             });
 
-
-        let currentRevealIndex = 0;
-
-        let lastRevealScroll =
-            window.scrollY;
-
-        let revealLocked = false;
-
-
-        function revealNextSection() {
-
-            if (revealLocked) return;
-
-            if (
-                currentRevealIndex >=
-                revealSpacers.length
-            ) {
-                return;
-            }
-
-
-            const spacer =
-                revealSpacers[
-                    currentRevealIndex
-                ];
-
-
-            const targetId =
-                spacer.dataset.target;
-
-
-            const targetSection =
-                sectionMap[targetId];
-
-
-            if (!targetSection) {
-
-                currentRevealIndex++;
-
-                return;
-
-            }
-
-
-            const rect =
-                spacer.getBoundingClientRect();
-
-
-            const viewportHeight =
-                window.innerHeight;
-
-
-            const isInRevealZone =
-                rect.top <
-                    viewportHeight * 0.88 &&
-                rect.bottom >
-                    viewportHeight * 0.08;
-
-
-            const hasScrolledEnough =
-                Math.abs(
-                    window.scrollY -
-                    lastRevealScroll
-                ) >=
-                (
-                    window.innerWidth <= 600
-                        ? 55
-                        : 75
-                );
-
-
-            if (
-                isInRevealZone &&
-                hasScrolledEnough &&
-                !targetSection.classList.contains(
-                    'revealed'
-                )
-            ) {
-
-                targetSection.classList.add(
-                    'revealed'
-                );
-
-
-                currentRevealIndex++;
-
-
-                lastRevealScroll =
-                    window.scrollY;
-
-
-                revealLocked = true;
-
-
-                setTimeout(() => {
-
-                    revealLocked = false;
-
-                }, 500);
-
-            }
-
+        },
+        {
+            threshold: 0.15,
+            rootMargin:
+                '0px 0px -10% 0px'
         }
+    );
 
+revealSections.forEach(section => {
 
-        window.addEventListener(
-            'scroll',
-            revealNextSection,
-            { passive: true }
-        );
+    observer.observe(section);
 
-
-        window.addEventListener(
-            'resize',
-            revealNextSection,
-            { passive: true }
-        );
-
+});
 
         /* ==========================================
            العداد
