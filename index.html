@@ -6,7 +6,7 @@
 
     <title>دعوة زفاف ملكية - فاطمة & علي</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Reem+Kufi:wght@400;600;700&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Reem+Kufi:wght@400;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -72,7 +72,7 @@
             z-index: -2;
             background:
                 linear-gradient(rgba(3,18,12,0.82), rgba(3,18,12,0.88)),
-                url('https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=1500&q=80')
+                url('https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=1000&q=65')
                 center / cover no-repeat;
             background-attachment: fixed;
         }
@@ -546,10 +546,10 @@
             margin: 0;
 
             transform:
-                translateY(32px)
-                scale(0.94);
+                translateY(24px)
+                scale(0.98);
 
-            filter: blur(5px);
+            will-change: opacity, transform;
 
             pointer-events: none;
 
@@ -558,13 +558,12 @@
             text-align: center;
 
             transition:
-                opacity 0.8s ease,
-                max-height 1s cubic-bezier(0.22, 1, 0.36, 1),
-                margin 0.7s ease,
-                padding 0.9s ease,
-                transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-                filter 0.9s ease,
-                box-shadow 0.9s ease;
+                opacity 0.55s ease,
+                max-height 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+                margin 0.45s ease,
+                padding 0.55s ease,
+                transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.55s ease;
         }
 
         .reveal-section.revealed {
@@ -578,7 +577,6 @@
                 translateY(0)
                 scale(1);
 
-            filter: blur(0);
 
             pointer-events: auto;
 
@@ -603,14 +601,14 @@
         @keyframes sectionEntrance {
             0% {
                 transform:
-                    translateY(34px)
-                    scale(0.94);
+                    translateY(24px)
+                    scale(0.98);
             }
 
-            65% {
+            70% {
                 transform:
-                    translateY(-3px)
-                    scale(1.018);
+                    translateY(-2px)
+                    scale(1.006);
             }
 
             100% {
@@ -647,8 +645,8 @@
 
         .reveal-section.revealed::before {
             animation:
-                sectionLightSweep 1.55s cubic-bezier(0.2,0.7,0.2,1)
-                0.08s 1 both;
+                sectionLightSweep 1.1s cubic-bezier(0.2,0.7,0.2,1)
+                0.02s 1 both;
         }
 
         @keyframes sectionLightSweep {
@@ -1260,7 +1258,42 @@
         @media (max-width: 600px) {
 
             body::after {
+                background:
+                    linear-gradient(rgba(3,18,12,0.84), rgba(3,18,12,0.90)),
+                    url('https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=700&q=55')
+                    center / cover no-repeat;
                 background-attachment: scroll;
+            }
+
+            #interactive-light {
+                display: none;
+            }
+
+            .light-ribbon {
+                animation: none !important;
+            }
+
+            .gate-card::after,
+            .royal-hero::before,
+            .reveal-section.revealed::before,
+            .reveal-section.revealed::after {
+                animation: none !important;
+            }
+
+            #entry-gate {
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+            }
+
+            .music-float-btn {
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+                box-shadow: 0 0 12px rgba(230,202,101,0.15);
+            }
+
+            .royal-hero,
+            .royal-section.revealed {
+                box-shadow: 0 10px 28px rgba(0,0,0,0.45);
             }
 
             .app-container {
@@ -1358,7 +1391,7 @@
             /* المسافات بين الأقسام */
 
             .reveal-spacer {
-                height: 55px;
+                height: 45px;
             }
 
             /* الأقسام */
@@ -1367,6 +1400,7 @@
                 padding: 22px 11px;
                 margin-bottom: 12px;
                 border-radius: 18px;
+                animation-duration: 0.55s;
             }
 
             .royal-section h3 {
@@ -1582,7 +1616,7 @@
     <audio
         id="bgMusic"
         loop
-        preload="metadata"
+        preload="none"
         playsinline>
         <source src="wedding.mp3" type="audio/mpeg">
     </audio>
@@ -2086,69 +2120,61 @@
            إعداد الموسيقى
         ========================================== */
 
-        bgMusic.volume = 0.7;
+        bgMusic.volume = 0.65;
 
 
         async function startMusic() {
-    try {
-        bgMusic.muted = false;
-        bgMusic.volume = 0.65;
+            try {
+                bgMusic.muted = false;
+                bgMusic.volume = 0.65;
 
-        if (bgMusic.readyState < 2) {
-            bgMusic.load();
+                // play() يبدأ تحميل الصوت عند الحاجة؛ لا نستخدم load() يدويًا.
+                await bgMusic.play();
+
+                musicToggle.textContent = '🎵';
+                musicToggle.classList.add('music-playing');
+
+                return true;
+
+            } catch (error) {
+                console.log('Music playback was blocked:', error);
+
+                musicToggle.textContent = '🔇';
+                musicToggle.classList.remove('music-playing');
+
+                return false;
+            }
         }
-
-        await bgMusic.play();
-
-        musicToggle.textContent = '🎵';
-        musicToggle.classList.add('music-playing');
-
-        return true;
-
-    } catch (error) {
-        console.log('Music playback was blocked:', error);
-
-        musicToggle.textContent = '🔇';
-        musicToggle.classList.remove('music-playing');
-
-        return false;
-    }
-}
 
 
         /* ==========================================
            فتح الدعوة
         ========================================== */
 
-      openGateBtn.addEventListener(
-    'click',
-    async () => {
+        openGateBtn.addEventListener(
+            'click',
+            () => {
 
-        entryGate.classList.add(
-            'hide-gate'
+                entryGate.classList.add('hide-gate');
+                mainContent.classList.add('active');
+
+                document
+                    .getElementById('countdown')
+                    .classList.add('revealed');
+
+                // لا ننتظر الموسيقى حتى لا يتأخر ظهور الدعوة.
+                startMusic();
+
+                setTimeout(() => {
+                    entryGate.style.display = 'none';
+                }, 900);
+            }
         );
-
-        mainContent.classList.add(
-            'active'
-        );
-
-        document
-            .getElementById('countdown')
-            .classList.add('revealed');
-
-        await startMusic();
-
-        setTimeout(() => {
-
-            entryGate.style.display =
-                'none';
-
-        }, 1000);
-
-    }
-);
 
         /* ==========================================
+           زر الموسيقى
+        ========================================== */
+/* ==========================================
            زر الموسيقى
         ========================================== */
 
@@ -2214,35 +2240,37 @@
         }
 
 
-        window.addEventListener(
-            'pointermove',
-            (event) => {
+        if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
 
-                moveInteractiveLight(
-                    event.clientX,
-                    event.clientY
-                );
+            window.addEventListener(
+                'pointermove',
+                (event) => {
+                    moveInteractiveLight(
+                        event.clientX,
+                        event.clientY
+                    );
+                },
+                { passive: true }
+            );
 
-            },
-            { passive: true }
-        );
-
-
-        window.addEventListener(
-            'pointerdown',
-            (event) => {
-
-                moveInteractiveLight(
-                    event.clientX,
-                    event.clientY
-                );
-
-            },
-            { passive: true }
-        );
+            window.addEventListener(
+                'pointerdown',
+                (event) => {
+                    moveInteractiveLight(
+                        event.clientX,
+                        event.clientY
+                    );
+                },
+                { passive: true }
+            );
+        }
 /* ==========================================
    ظهور الأقسام عند الوصول إليها
+   نراقب الـ spacer لأنه ظاهر حتى عندما يكون القسم مخفيًا
 ========================================== */
+
+const revealSpacers =
+    document.querySelectorAll('.reveal-spacer');
 
 const revealSections =
     document.querySelectorAll('.reveal-section');
@@ -2250,54 +2278,42 @@ const revealSections =
 const footer =
     document.querySelector('.royal-footer');
 
-const observer =
+const revealObserver =
     new IntersectionObserver(
         (entries) => {
 
             entries.forEach(entry => {
 
-                if (entry.isIntersecting) {
+                if (!entry.isIntersecting) return;
 
-                    entry.target.classList.add(
-                        'revealed'
+                const spacer = entry.target;
+                const targetId = spacer.dataset.target;
+                const targetSection =
+                    document.getElementById(targetId);
+
+                if (!targetSection) return;
+
+                targetSection.classList.add('revealed');
+                revealObserver.unobserve(spacer);
+
+                const allVisible =
+                    [...revealSections].every(section =>
+                        section.classList.contains('revealed')
                     );
 
-                    observer.unobserve(
-                        entry.target
-                    );
-
-                    const allVisible =
-                        [...revealSections].every(
-                            section =>
-                                section.classList.contains(
-                                    'revealed'
-                                )
-                        );
-
-                    if (allVisible) {
-
-                        footer.classList.add(
-                            'show-footer'
-                        );
-
-                    }
-
+                if (allVisible && footer) {
+                    footer.classList.add('show-footer');
                 }
-
             });
-
         },
         {
-            threshold: 0.15,
-            rootMargin:
-                '0px 0px -10% 0px'
+            threshold: 0.01,
+            rootMargin: '0px 0px -5% 0px'
         }
     );
 
-revealSections.forEach(section => {
-
-    observer.observe(section);
-
+revealSpacers.forEach(spacer => {
+    revealObserver.observe(spacer);
 });
 
         /* ==========================================
@@ -2769,10 +2785,12 @@ revealSections.forEach(section => {
             );
 
 
-        panels.forEach(panel => {
+        if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
 
-            panel.addEventListener(
-                'pointermove',
+            panels.forEach(panel => {
+
+                panel.addEventListener(
+                    'pointermove',
                 (event) => {
 
                     if (
@@ -2822,17 +2840,18 @@ revealSections.forEach(section => {
             );
 
 
-            panel.addEventListener(
-                'pointerleave',
-                () => {
+                panel.addEventListener(
+                    'pointerleave',
+                    () => {
 
-                    panel.style.transform =
-                        '';
+                        panel.style.transform =
+                            '';
 
-                }
-            );
+                    }
+                );
 
-        });
+            });
+        }
 
     </script>
 
